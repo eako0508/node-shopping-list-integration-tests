@@ -142,3 +142,95 @@ describe('Shopping List', function() {
       });
   });
 });
+
+describe('Recipes', function(){
+
+  before(function(){
+    return runServer();
+  });
+
+  after(function(){
+    return closeServer();
+  });
+  
+  it('should list items on GET', function(){
+    return chai.request(app)
+      .get('/recipes')
+      .then(function(res){
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.a('array');
+
+        expect(res.body.length).to.be.at.least(1);
+
+        const expectedKeys = ['id', 'name', 'ingredients'];
+        res.body.forEach(function(element){
+          expect(element).to.be.a('object');
+          expect(element).to.include.keys(expectedKeys);
+        });
+    });
+  });
+  
+  /*
+  it('should list items on GET', function() {
+    // for Mocha tests, when we're dealing with asynchronous operations,
+    // we must either return a Promise object or else call a `done` callback
+    // at the end of the test. The `chai.request(server).get...` call is asynchronous
+    // and returns a Promise, so we just return it.
+    return chai.request(app)
+      .get('/recipes')
+      .then(function(res) {
+        expect(res).to.have.status(200);
+        expect(res).to.be.json;
+        expect(res.body).to.be.a('array');
+
+        // because we create three items on app load
+        expect(res.body.length).to.be.at.least(1);
+        // each item should be an object with key/value pairs
+        // for `id`, `name` and `checked`.
+        const expectedKeys = ['id', 'name', 'ingredients'];
+        res.body.forEach(function(item) {
+          expect(item).to.be.a('object');
+          expect(item).to.include.keys(expectedKeys);
+        });
+      });
+  });
+  */
+  
+  it('should creat new entry on POST', function(){
+    let new_entry = {name:'ramen', ingredients:['1 cup of water', 'raw egg', 'ramen']};
+    return chai.request(app)
+      .post('/recipes')
+      .send(new_entry)
+      .then(function(res){
+        expect(res).to.have.status(201);
+        expect(res).to.be.json;
+        //let expectedKeys = ['id', 'name', 'ingredients'];
+        expect(res.body).to.be.a('object');
+        //expect(res.body).to.include.keys(expectedKeys);
+        expect(res.body).to.include.keys('id', 'name', 'ingredients');
+        expect(res.body.id).to.not.equal(null);
+        expect(res.body).to.deep.equal(Object.assign(new_entry, {id:res.body.id}));
+      });
+  });
+  /*
+  it('should add an item on POST', function() {
+    //const newItem = {name: 'coffee', checked: false};
+    let newItem = {name:'ramen', ingredients:['1 cup of water', 'raw egg', 'ramen']};
+    return chai.request(app)
+      .post('/recipes')
+      .send(newItem)
+      .then(function(res) {
+        expect(res).to.have.status(201);
+        expect(res).to.be.json;
+        expect(res.body).to.be.a('object');
+        expect(res.body).to.include.keys('id', 'name', 'ingredients');
+        expect(res.body.id).to.not.equal(null);
+        // response should be deep equal to `newItem` from above if we assign
+        // `id` to it from `res.body.id`
+        expect(res.body).to.deep.equal(Object.assign(newItem, {id: res.body.id}));
+      });
+  });
+  */
+
+});
