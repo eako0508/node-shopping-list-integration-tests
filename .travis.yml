@@ -1,2 +1,9 @@
 language: node_js
 node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: nzdUqbyOfThtfFcF/7G2flJRGn7JPwfgEMabNtrdTSMyGBPmwWcq5gmSHCYVmPAHDx0qN26e5DdJpvVllasPUQGoZfwXK4IZ/nL128LKl6RIl9RluV619VyBdAR2XNNZjhUx6XxdFkIKNpdaAsbIRjg+rYEjiXUVYoQv+l9aVuZ2U/X2c0JnBQ+1/yLPupMBIXRDIYd0nQ43OcxZsCOO6AImHp7gdtBKPQ62Lao8CZO80MtdUUh/7nN5Cm7v9fYvY+r7fCr8fG0n7pPWTgSeB5Pkkb++894/60nLDkrFITYPET+POcaq1LTyOWHJm0nFEgCCQB/G6apw5mbYLgedN4piMtk9/W3Fc1z+cWVpFUAZOpDS5o61wVvISwGB1ZOEZP8JRjx1XO2oOcT2JwKKEKpdNO/gIUPJI2ObllB4s8IOPaOSIGOU2pN2FwkrFDVc6X56Gk/57Maw/mhGaC9jhuojFd6hhuQGGiJUreMP72fRq+omxw34M5gkYEnoXH2IvW8RlBffXxggNoXByShFtiCYhHKU2WowgNiJBUsW+y/xw1BzZU16Oyy1n14mqpKUW7CL1KW+V9YXfY6AruM1LG4idMIbMSVLbbZrh1sQtRVrNAlLVs9AGzBlf341EpXRfW+EyPfM4xD8gprk9cDh+Crps1mN3b7rOXMCHmpNOvQ=
+  app: calm-beyond-30494
+  on:
+    repo: eako0508/node-shopping-list-integration-tests
